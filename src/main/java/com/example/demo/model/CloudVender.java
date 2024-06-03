@@ -4,20 +4,17 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cloud_vender_info")
 public class CloudVender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long vendorId;
+    private int vendorId;
     private String vendorName;
     private String vendorAddress;
 
 
     private String vendorPhone;
 
-    public CloudVender(Long vendorId, String vendorName, String vendorAddress, String vendorPhone) {
-        this.vendorId = vendorId;
+    public CloudVender(String vendorName, String vendorAddress, String vendorPhone) {
         this.vendorName = vendorName;
         this.vendorAddress = vendorAddress;
         this.vendorPhone = vendorPhone;
@@ -27,13 +24,11 @@ public class CloudVender {
     public CloudVender() {
     }
 
-    public Long getVendorId() {
+    public int getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(Long vendorId) {
-        this.vendorId = vendorId;
-    }
+
 
     public String getVendorName() {
         return vendorName;

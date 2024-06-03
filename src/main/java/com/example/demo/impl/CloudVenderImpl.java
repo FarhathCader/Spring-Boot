@@ -5,6 +5,7 @@ import com.example.demo.repository.CloudVendorRepository;
 import com.example.demo.response.ResponseHandler;
 import com.example.demo.service.CloudVendorService;
 import com.example.demo.model.CloudVender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Service
 public class CloudVenderImpl implements CloudVendorService {
 
+    @Autowired
     CloudVendorRepository cloudVendorRepository ;
 
     public CloudVenderImpl(CloudVendorRepository cloudVendorRepository) {
@@ -29,7 +31,7 @@ public class CloudVenderImpl implements CloudVendorService {
     public ResponseEntity<Object> getCloudVendor(String vendorId) {
         try {
             System.out.println(vendorId);
-            Optional<CloudVender> cloudVender = cloudVendorRepository.findById(Long.parseLong(vendorId));
+            Optional<CloudVender> cloudVender = cloudVendorRepository.findById(Integer.parseInt(vendorId));
             if(cloudVender.isPresent()){
                 return ResponseHandler.responseBuilder("Success",cloudVender.get(),HttpStatus.OK);
             }else{
@@ -47,7 +49,7 @@ public class CloudVenderImpl implements CloudVendorService {
     @Override
     public CloudVender updateCloudVendor(String vendorId, CloudVender cloudVendor) {
         try {
-            long id = Long.parseLong(vendorId);
+            int id = Integer.parseInt(vendorId);
             Optional<CloudVender> existingVendor = cloudVendorRepository.findById(id);
             if (existingVendor.isPresent()) {
                 CloudVender updatedVendor = existingVendor.get();
@@ -82,7 +84,7 @@ public class CloudVenderImpl implements CloudVendorService {
     @Override
     public String deleteCloudVendor(String vendorId) {
         if(cloudVendorRepository != null)
-        cloudVendorRepository.deleteById(Long.parseLong(vendorId));
+        cloudVendorRepository.deleteById(Integer.parseInt(vendorId));
 
         return "Deletion succesfully";
     }
